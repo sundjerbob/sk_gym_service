@@ -4,11 +4,21 @@ import java.time.LocalDateTime;
 
 public class ScheduledWorkoutDto {
 
+    Long id;
     private LocalDateTime startTime;
 
     private String gymName;
 
     private TrainingTypeDto trainingType;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDateTime getStartTime() {
         return startTime;

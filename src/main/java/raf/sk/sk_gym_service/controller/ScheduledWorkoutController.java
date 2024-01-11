@@ -3,6 +3,7 @@ package raf.sk.sk_gym_service.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import raf.sk.sk_gym_service.dto.model.ScheduledWorkoutDto;
 import raf.sk.sk_gym_service.entity_model.ScheduledWorkout;
 import raf.sk.sk_gym_service.repository.WorkoutScheduleRepository;
 
@@ -38,15 +39,12 @@ public class ScheduledWorkoutController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ScheduledWorkout> updateWorkoutSchedule(@PathVariable Long id, @RequestBody ScheduledWorkout updatedScheduledWorkout) {
+    public ResponseEntity<ScheduledWorkout> updateWorkoutSchedule(@PathVariable Long id, @RequestBody ScheduledWorkoutDto updatedScheduledWorkout) {
         return workoutScheduleRepository.findById(id)
                 .map(existingScheduledWorkout -> {
                     // Update fields based on your requirements
-                    existingScheduledWorkout.setTrainingType(updatedScheduledWorkout.getTrainingType());
-                    existingScheduledWorkout.setDayOfWeek(updatedScheduledWorkout.getDayOfWeek());
+                    existingScheduledWorkout.setTrainingType(updatedScheduledWorkout.getTrainingTypeName());
                     existingScheduledWorkout.setStartTime(updatedScheduledWorkout.getStartTime());
-                    existingScheduledWorkout.setEndTime(updatedScheduledWorkout.getEndTime());
-                    // Update other  as needed fields
                     return ResponseEntity.ok(workoutScheduleRepository.save(existingScheduledWorkout));
                 })
                 .orElse(ResponseEntity.notFound().build());

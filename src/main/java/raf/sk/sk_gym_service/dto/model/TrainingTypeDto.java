@@ -2,6 +2,7 @@ package raf.sk.sk_gym_service.dto.model;
 
 public class TrainingTypeDto {
 
+    private Long id;
     private String name;
 
     private String description;
@@ -9,6 +10,14 @@ public class TrainingTypeDto {
     private int durationInMinutes;
 
     private boolean individual;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

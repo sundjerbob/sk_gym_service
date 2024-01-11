@@ -2,12 +2,20 @@ package raf.sk.sk_gym_service.dto.model;
 
 public class GymTrainingTypeDto {
 
+    private Long id;
     private String location;
 
     private TrainingTypeDto trainingType;
 
     private Double price;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLocation() {
         return location;

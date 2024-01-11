@@ -33,11 +33,13 @@ public class BookedWorkout {
         this.userEmail = userEmail;
     }
 
-    public ScheduledWorkout getWorkoutSchedule() {
+    public ScheduledWorkout getScheduledWorkout() {
         return scheduledWorkout;
     }
 
-    public void setWorkoutSchedule(ScheduledWorkout scheduledWorkout) {
+    public void setScheduledWorkout(ScheduledWorkout scheduledWorkout) {
         this.scheduledWorkout = scheduledWorkout;
     }
+
+
 }

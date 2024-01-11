@@ -45,7 +45,7 @@ public class TrainingType {
         this.name = name;
     }
 
-    public Boolean getIndividual() {
+    public Boolean isIndividual() {
         return individual;
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class GymDto {
 
+    private Long id;
     private String name;
 
     private String managerEmail;
@@ -16,8 +17,12 @@ public class GymDto {
         return supportedTrainingTypes;
     }
 
-    public void setSupportedTrainingTypes(List<GymTrainingTypeDto> supportedTrainingTypes) {
-        this.supportedTrainingTypes = supportedTrainingTypes;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -28,13 +33,18 @@ public class GymDto {
         this.name = name;
     }
 
-    public Long getManagerEmail() {
+    public void setManagerEmail(String managerEmail) {
+        this.managerEmail = managerEmail;
+    }
+
+    public String getManagerEmail() {
         return managerEmail;
     }
 
-    public void setManagerEmail(Long managerEmail) {
-        this.managerEmail = managerEmail;
+    public void setSupportedTrainingTypes(List<GymTrainingTypeDto> supportedTrainingTypes) {
+        this.supportedTrainingTypes = supportedTrainingTypes;
     }
+
 
     public int getNumberOfTrainers() {
         return numberOfTrainers;
