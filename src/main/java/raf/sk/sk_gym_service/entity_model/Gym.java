@@ -12,7 +12,7 @@ public class Gym {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
 
     @Column(name = "number_of_trainers")
@@ -32,6 +32,7 @@ public class Gym {
     )
     private List<GymTrainingType> supportedTrainingTypes;
 
+    private Boolean deleted;
 
     public Long getId() {
         return id;
@@ -57,12 +58,12 @@ public class Gym {
         this.numberOfTrainers = numberOfTrainers;
     }
 
-    public String getManagersEmail() {
+    public String getManagerEmail() {
         return managersEmail;
     }
 
-    public void setManagersEmail(String managersEmail) {
-        this.managersEmail = managersEmail;
+    public void setManagerEmail(String managerEmail) {
+        this.managersEmail = managerEmail;
     }
 
     public List<ScheduledWorkout> getScheduledWorkouts() {
@@ -79,5 +80,13 @@ public class Gym {
 
     public void setSupportedTrainingTypes(List<GymTrainingType> supportedTrainingTypes) {
         this.supportedTrainingTypes = supportedTrainingTypes;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

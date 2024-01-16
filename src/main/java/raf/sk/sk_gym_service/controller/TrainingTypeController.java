@@ -3,8 +3,9 @@ package raf.sk.sk_gym_service.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import raf.sk.sk_gym_service.entity_model.TrainingType;
+import raf.sk.sk_gym_service.dto.model.TrainingTypeDto;
 import raf.sk.sk_gym_service.repository.TrainingTypeRepository;
+import raf.sk.sk_gym_service.service.api.TrainingTypeServiceApi;
 
 import java.util.List;
 
@@ -13,50 +14,41 @@ import java.util.List;
 public class TrainingTypeController {
 
     private final TrainingTypeRepository trainingTypeRepository;
+    private final TrainingTypeServiceApi trainingTypeService;
 
-    public TrainingTypeController(TrainingTypeRepository trainingTypeRepository) {
+    public TrainingTypeController(TrainingTypeRepository trainingTypeRepository, TrainingTypeServiceApi trainingTypeService) {
         this.trainingTypeRepository = trainingTypeRepository;
+        this.trainingTypeService = trainingTypeService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TrainingType> getTrainingTypeById(@PathVariable Long id) {
-        return trainingTypeRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TrainingTypeDto> getTrainingTypeById(@PathVariable Long id) {
+        TrainingTypeDto trainingType = trainingTypeService.getTrainingTypeById(id);
+        return trainingType != null ? ResponseEntity.ok(trainingType) : ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<TrainingType>> getAllTrainingTypes() {
-        List<TrainingType> trainingTypes = trainingTypeRepository.findAll();
-        return ResponseEntity.ok(trainingTypes);
+    public ResponseEntity<List<TrainingTypeDto>> getAllTrainingTypes() {
+        return ResponseEntity.ok(trainingTypeService.getAllTrainingTypes());
     }
 
     @PostMapping
-    public ResponseEntity<TrainingType> createTrainingType(@RequestBody TrainingType trainingType) {
-        TrainingType savedTrainingType = trainingTypeRepository.save(trainingType);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTrainingType);
+    public ResponseEntity<TrainingTypeDto> createTrainingType(@RequestBody TrainingTypeDto trainingType) {
+        return new ResponseEntity<>(
+                trainingTypeService.createTrainingType(trainingType),
+                HttpStatus.CREATED
+        );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrainingType> updateTrainingType(@PathVariable Long id, @RequestBody TrainingType updatedTrainingType) {
-        return trainingTypeRepository.findById(id)
-                .map(existingTrainingType -> {
-                    existingTrainingType.setName(updatedTrainingType.getName());
-                    existingTrainingType.setDescription(updatedTrainingType.getDescription());
-                    // Update other fields as needed
-                    return ResponseEntity.ok(trainingTypeRepository.save(existingTrainingType));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TrainingTypeDto> updateTrainingType(@PathVariable Long id, @RequestBody TrainingTypeDto updatedTrainingType) {
+        TrainingTypeDto trainingType = trainingTypeService.updateTrainingType(id, updatedTrainingType);
+        return trainingType != null ? ResponseEntity.ok(trainingType) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTrainingType(@PathVariable Long id) {
-        if (trainingTypeRepository.existsById(id)) {
-            trainingTypeRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return trainingTypeService.deleteTrainingType(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
 

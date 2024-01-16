@@ -23,7 +23,10 @@ public class TrainingType {
     private String description;
 
 
-    private Boolean individual;
+    @Column(name = "is_individual")
+    private Boolean isIndividual;
+
+    private Integer maxParticipants;
 
 
     @ManyToMany(mappedBy = "supportedTrainingTypes")
@@ -45,14 +48,6 @@ public class TrainingType {
         this.name = name;
     }
 
-    public Boolean isIndividual() {
-        return individual;
-    }
-
-    public void setIndividual(Boolean individual) {
-        this.individual = individual;
-    }
-
     public Integer getDurationInMinutes() {
         return durationInMinutes;
     }
@@ -67,5 +62,29 @@ public class TrainingType {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setIndividual(Boolean individual) {
+        isIndividual = individual;
+    }
+
+    public Boolean getIndividual() {
+        return isIndividual;
+    }
+
+    public Integer getMaxParticipants() {
+        return maxParticipants;
+    }
+
+    public void setMaxParticipants(Integer maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
+
+    public List<Gym> getSupportedGyms() {
+        return supportedGyms;
+    }
+
+    public void setSupportedGyms(List<Gym> supportedGyms) {
+        this.supportedGyms = supportedGyms;
     }
 }

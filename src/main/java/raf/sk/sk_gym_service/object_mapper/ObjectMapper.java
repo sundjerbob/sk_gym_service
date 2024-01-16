@@ -1,58 +1,65 @@
 package raf.sk.sk_gym_service.object_mapper;
 
-import raf.sk.sk_gym_service.dto.model.BookedWorkoutDto;
-import raf.sk.sk_gym_service.dto.model.ScheduledWorkoutDto;
-import raf.sk.sk_gym_service.dto.model.TrainingTypeDto;
-import raf.sk.sk_gym_service.entity_model.BookedWorkout;
-import raf.sk.sk_gym_service.entity_model.ScheduledWorkout;
-import raf.sk.sk_gym_service.entity_model.TrainingType;
+import raf.sk.sk_gym_service.dto.model.*;
+import raf.sk.sk_gym_service.entity_model.*;
+
 
 public class ObjectMapper {
 
-    public static BookedWorkoutDto bookedWorkoutToDto(BookedWorkout dataSource, BookedWorkoutDto dataDestination) {
+
+    public static BookedWorkoutDto bookedWorkoutToDto(BookedWorkout dataSource) {
+        BookedWorkoutDto dataDestination = new BookedWorkoutDto();
         dataDestination.setId(dataSource.getId());
-        dataDestination.setScheduledWorkout(scheduledWorkoutToDto(dataSource.getScheduledWorkout(), new ScheduledWorkoutDto()));
+        dataDestination.setScheduledWorkout(scheduledWorkoutToDto(dataSource.getScheduledWorkout()));
         dataDestination.setUserEmail(dataSource.getUserEmail());
         return dataDestination;
     }
 
-    public static ScheduledWorkoutDto scheduledWorkoutToDto(ScheduledWorkout dataSource, ScheduledWorkoutDto dataDestination) {
+    public static ScheduledWorkoutDto scheduledWorkoutToDto(ScheduledWorkout dataSource) {
+        ScheduledWorkoutDto dataDestination = new ScheduledWorkoutDto();
         dataDestination.setId(dataSource.getId());
         dataDestination.setGymName(dataSource.getGym().getName());
         dataDestination.setStartTime(dataSource.getStartTime());
-        dataDestination.setTrainingType(trainingTypeToDto(dataSource.getTrainingType(), new TrainingTypeDto()));
+        dataDestination.setTrainingType(trainingTypeToDto(dataSource.getTrainingType()));
         return dataDestination;
     }
 
-    public static TrainingTypeDto trainingTypeToDto(TrainingType dataSource, TrainingTypeDto dataDestination) {
+    public static TrainingTypeDto trainingTypeToDto(TrainingType dataSource) {
+        TrainingTypeDto dataDestination = new TrainingTypeDto();
         dataDestination.setId(dataSource.getId());
         dataDestination.setName(dataSource.getName());
         dataDestination.setDescription(dataSource.getDescription());
-        dataDestination.setIndividual(dataSource.isIndividual());
+        dataDestination.setIndividual(dataSource.getIndividual());
         dataDestination.setDurationInMinutes(dataSource.getDurationInMinutes());
         return dataDestination;
     }
 
-    public static BookedWorkout dtoToBookedWorkout(BookedWorkoutDto dataSource, BookedWorkout dataDestination) {
-        dataDestination.setId(dataSource.getId());
-        dataDestination.setUserEmail(dataSource.getUserEmail());
-        dataDestination.setScheduledWorkout(dtoToScheduledWorkout(dataSource.getScheduledWorkout(), new ScheduledWorkout()));
-        return dataDestination;
-    }
 
-    public static ScheduledWorkout dtoToScheduledWorkout(ScheduledWorkoutDto dataSource, ScheduledWorkout dataDestination) {
-        dataDestination.setId(dataSource.getId());
-        dataDestination.setTrainingType(dtoToTrainingType(dataSource.getTrainingType(), new TrainingType()));
-        dataDestination.setId(dataSource.getId());
-        return dataDestination;
-    }
 
-    public static TrainingType dtoToTrainingType(TrainingTypeDto dataSource, TrainingType dataDestination) {
+
+    public GymDto gymToDto(Gym dataSource) {
+        GymDto dataDestination = new GymDto();
         dataDestination.setId(dataSource.getId());
         dataDestination.setName(dataSource.getName());
-        dataDestination.setDescription(dataSource.getDescription());
-        dataDestination.setIndividual(dataSource.isIndividual());
-        dataDestination.setDurationInMinutes(dataSource.getDurationInMinutes());
+        dataDestination.setManagerEmail(dataSource.getManagerEmail());
+        dataDestination.setNumberOfTrainers(dataSource.getNumberOfTrainers());
+        dataDestination.setSupportedTrainingTypes(
+                dataSource.getSupportedTrainingTypes().stream()
+                        .map(
+                                ObjectMapper::gymTrainingTypeToDto
+                        ).toList()
+        );
         return dataDestination;
     }
+
+
+    public static GymTrainingTypeDto gymTrainingTypeToDto(GymTrainingType dataSource) {
+        GymTrainingTypeDto dataDestination = new GymTrainingTypeDto();
+        dataDestination.setId(dataSource.getId());
+        dataDestination.setGymName(dataSource.getGym().getName());
+        dataDestination.setPrice(dataDestination.getPrice());
+        return dataDestination;
+    }
+
+
 }

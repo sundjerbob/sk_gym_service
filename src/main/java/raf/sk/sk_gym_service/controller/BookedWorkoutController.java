@@ -1,53 +1,50 @@
 package raf.sk.sk_gym_service.controller;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import raf.sk.sk_gym_service.entity_model.BookedWorkout;
+import raf.sk.sk_gym_service.dto.model.BookedWorkoutDto;
 import raf.sk.sk_gym_service.repository.BookedWorkoutRepository;
+import raf.sk.sk_gym_service.service.api.BookedWorkoutServiceApi;
 
 @RestController
-@RequestMapping("/api/booked-workouts")
+@RequestMapping("booked-workouts")
 public class BookedWorkoutController {
 
+    private final BookedWorkoutServiceApi bookedWorkoutService;
     private final BookedWorkoutRepository bookedWorkoutRepository;
 
-    public BookedWorkoutController(BookedWorkoutRepository bookedWorkoutRepository) {
+    public BookedWorkoutController(BookedWorkoutServiceApi bookedWorkoutService, BookedWorkoutRepository bookedWorkoutRepository) {
+        this.bookedWorkoutService = bookedWorkoutService;
         this.bookedWorkoutRepository = bookedWorkoutRepository;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookedWorkout> getBookedWorkoutById(@PathVariable Long id) {
-        return bookedWorkoutRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<BookedWorkoutDto> getBookedWorkoutById(@PathVariable Long id) {
+        BookedWorkoutDto bookedWorkout = bookedWorkoutService.getBookedWorkoutById(id);
+        return bookedWorkout != null ? ResponseEntity.ok(bookedWorkout) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     @PostMapping
-    public ResponseEntity<BookedWorkout> createBookedWorkout(@RequestBody BookedWorkout bookedWorkout) {
-        BookedWorkout savedWorkout = bookedWorkoutRepository.save(bookedWorkout);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedWorkout);
+    public ResponseEntity<BookedWorkoutDto> createBookedWorkout(@RequestBody BookedWorkoutDto bookedWorkoutDto) {
+        return new ResponseEntity<>(bookedWorkoutService.createBookedWorkout(bookedWorkoutDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BookedWorkout> updateBookedWorkout(@PathVariable Long id, @RequestBody BookedWorkout updatedWorkout) {
-        return bookedWorkoutRepository.findById(id)
-                .map(existingWorkout -> {
-                    existingWorkout.setUserEmail(updatedWorkout.getUserEmail());
-                    // Update other fields as needed
-                    return ResponseEntity.ok(bookedWorkoutRepository.save(existingWorkout));
-                })
-                .orElse(ResponseEntity.notFound().build());
+
+    @Transactional
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<BookedWorkoutDto> updateBookedWorkout(@PathVariable Long id, @RequestBody BookedWorkoutDto updatedWorkout) {
+        BookedWorkoutDto bookedWorkoutDto = bookedWorkoutService.updateBookedWorkout(id, updatedWorkout);
+        return bookedWorkoutDto != null ?
+                ResponseEntity.ok(bookedWorkoutDto) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBookedWorkout(@PathVariable Long id) {
-        if (bookedWorkoutRepository.existsById(id)) {
-            bookedWorkoutRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/cancel")
+    public ResponseEntity<Void> setCanceledTo(@PathParam("id") Long id, @PathParam("isCanceled") Boolean isCanceled) {
+        return bookedWorkoutService.setCanceledTo(id, isCanceled) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
 

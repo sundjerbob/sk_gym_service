@@ -11,6 +11,8 @@ public class TrainingTypeDto {
 
     private boolean individual;
 
+    private int maxParticipants;
+
     public Long getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class TrainingTypeDto {
 
     public void setIndividual(boolean individual) {
         this.individual = individual;
+    }
+
+    public int getMaxParticipants() {
+        return maxParticipants;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 }

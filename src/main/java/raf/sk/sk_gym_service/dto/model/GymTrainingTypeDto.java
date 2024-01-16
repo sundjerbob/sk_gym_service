@@ -3,7 +3,7 @@ package raf.sk.sk_gym_service.dto.model;
 public class GymTrainingTypeDto {
 
     private Long id;
-    private String location;
+    private String gymName;
 
     private TrainingTypeDto trainingType;
 
@@ -17,12 +17,13 @@ public class GymTrainingTypeDto {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public String getGymName() {
+
+        return gymName;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setGymName(String gymName) {
+        this.gymName = gymName;
     }
 
     public TrainingTypeDto getTrainingType() {

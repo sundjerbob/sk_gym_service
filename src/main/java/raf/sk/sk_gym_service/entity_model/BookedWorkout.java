@@ -17,6 +17,9 @@ public class BookedWorkout {
     @JoinColumn(name = "scheduled_workout_id")
     private ScheduledWorkout scheduledWorkout;
 
+    private Boolean isCanceled;
+
+
     public Long getId() {
         return id;
     }
@@ -42,4 +45,7 @@ public class BookedWorkout {
     }
 
 
+    public Boolean getCanceled() {
+        return isCanceled;
+    }
 }
