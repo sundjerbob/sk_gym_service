@@ -1,5 +1,7 @@
 package raf.sk.sk_gym_service.dto;
 
+import raf.sk.sk_gym_service.entity_model.BookedWorkout;
+
 import java.time.LocalDateTime;
 
 public class ScheduledWorkoutDto {
@@ -10,6 +12,8 @@ public class ScheduledWorkoutDto {
     private String gymName;
 
     private TrainingTypeDto trainingType;
+
+    private boolean isCanceled;
 
 
     public Long getId() {
@@ -42,5 +46,15 @@ public class ScheduledWorkoutDto {
 
     public void setTrainingType(TrainingTypeDto trainingType) {
         this.trainingType = trainingType;
+    }
+
+
+
+    public void setCanceled(boolean canceled) {
+        isCanceled = canceled;
+    }
+
+    public boolean isCanceled() {
+        return isCanceled;
     }
 }

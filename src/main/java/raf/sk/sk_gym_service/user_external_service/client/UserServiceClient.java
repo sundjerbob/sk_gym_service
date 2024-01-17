@@ -12,14 +12,14 @@ import raf.sk.sk_gym_service.user_external_service.inter_service_comunication.Us
 public class UserServiceClient {
 
     private final RestTemplate userServiceRestTemplate;
+    private static final int MAX_RETRIES = 3;
+    private static final long WAIT_TIME_MS = 1000; // 1 second
 
     public UserServiceClient(RestTemplate userServiceRestTemplate) {
         this.userServiceRestTemplate = userServiceRestTemplate;
     }
 
-
-    public UserPerks getUserPerks(String authorizationHeader, Long userId, String gymName) {
-
+    public UserPerks getUserPerksWithRetry(String authorizationHeader, Long userId, String gymName) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", authorizationHeader);
 
@@ -27,13 +27,35 @@ public class UserServiceClient {
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<UserPerks> responseEntity = userServiceRestTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                entity,
-                UserPerks.class
-        );
+        int retries = 0;
+        ResponseEntity<UserPerks> responseEntity = null;
 
-        return responseEntity.getBody();
+        while (retries < MAX_RETRIES) {
+            try {
+                responseEntity = userServiceRestTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        entity,
+                        UserPerks.class
+                );
+                if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                    return responseEntity.getBody();
+                }
+            } catch (Exception e) {
+                // Log or handle the exception
+            }
+
+            // Introduce a wait time between retries
+            try {
+                Thread.sleep(WAIT_TIME_MS);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+
+            retries++;
+        }
+
+        // Handle the case when retries are exhausted or the response is not successful
+        return null;
     }
 }

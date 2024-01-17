@@ -23,6 +23,10 @@ public class ScheduledWorkout {
     @Column(columnDefinition = "DATETIME", name = "start_time")
     private LocalDateTime startTime;
 
+    @Column(name = "canceled")
+    private Boolean isCanceled;
+
+
     public Long getId() {
         return id;
     }
@@ -53,5 +57,13 @@ public class ScheduledWorkout {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        isCanceled = canceled;
+    }
+
+    public Boolean getCanceled() {
+        return isCanceled;
     }
 }

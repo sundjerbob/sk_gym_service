@@ -9,9 +9,8 @@ public interface BookedWorkoutServiceApi {
     BookedWorkoutDto getBookedWorkoutById(Long id);
 
 
-    List<BookedWorkoutDto> getBookedWorkoutByScheduledWorkout(Long scheduledWorkoutId);
+    List<BookedWorkoutDto> getBookedWorkoutsByScheduledWorkout(Long scheduledWorkoutId);
 
     BookedWorkoutDto createBookedWorkout(Long scheduledWorkoutId, String authHeader);
 
-    boolean setCanceledTo(Long id, Boolean setCanceledTo);
 }

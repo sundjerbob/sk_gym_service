@@ -21,8 +21,7 @@ public class BookedWorkout {
     @Column(name = "calculated_price")
     private Double calculatedPrice;
 
-    @Column("canceled")
-    private Boolean isCanceled;
+
 
 
     public Long getId() {
@@ -58,11 +57,5 @@ public class BookedWorkout {
         this.calculatedPrice = calculatedPrice;
     }
 
-    public Boolean getCanceled() {
-        return isCanceled;
-    }
 
-    public void setCanceled(Boolean canceled) {
-        isCanceled = canceled;
-    }
 }

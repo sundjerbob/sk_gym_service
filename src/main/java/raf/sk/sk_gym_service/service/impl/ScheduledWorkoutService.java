@@ -81,5 +81,9 @@ public class ScheduledWorkoutService implements ScheduledWorkoutServiceApi {
         return false;
     }
 
+    @Override
+    public boolean setCanceledTo(Long id, Boolean setCanceledTo) {
+        return scheduledWorkoutRepository.setCanceledTo(id, setCanceledTo) == 1;
+    }
 
 }

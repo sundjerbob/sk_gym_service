@@ -21,6 +21,7 @@ public class ObjectMapper {
         dataDestination.setGymName(dataSource.getGym().getName());
         dataDestination.setStartTime(dataSource.getStartTime());
         dataDestination.setTrainingType(trainingTypeToDto(dataSource.getTrainingType()));
+        dataDestination.setCanceled(dataSource.getCanceled());
         return dataDestination;
     }
 
@@ -46,7 +47,7 @@ public class ObjectMapper {
         dataDestination.setSupportedTrainingTypes(
                 dataSource.getSupportedTrainingTypes().stream()
                         .map(
-                                ObjectMapper::gymTrainingTypeToDto
+                                ObjectMapper::trainingTypeToDto
                         ).toList()
         );
         return dataDestination;

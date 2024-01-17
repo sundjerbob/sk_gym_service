@@ -11,9 +11,9 @@ public class GymDto {
 
     private int numberOfTrainers;
 
-    private List<GymTrainingTypeDto> supportedTrainingTypes;
+    private List<TrainingTypeDto> supportedTrainingTypes;
 
-    public List<GymTrainingTypeDto> getSupportedTrainingTypes() {
+    public List<TrainingTypeDto> getSupportedTrainingTypes() {
         return supportedTrainingTypes;
     }
 
@@ -41,7 +41,7 @@ public class GymDto {
         return managerEmail;
     }
 
-    public void setSupportedTrainingTypes(List<GymTrainingTypeDto> supportedTrainingTypes) {
+    public void setSupportedTrainingTypes(List<TrainingTypeDto> supportedTrainingTypes) {
         this.supportedTrainingTypes = supportedTrainingTypes;
     }
 

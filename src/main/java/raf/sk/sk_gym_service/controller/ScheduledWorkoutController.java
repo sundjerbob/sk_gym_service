@@ -1,6 +1,8 @@
 package raf.sk.sk_gym_service.controller;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import raf.sk.sk_gym_service.dto.ScheduledWorkoutDto;
 import raf.sk.sk_gym_service.service.api.ScheduledWorkoutServiceApi;
@@ -50,5 +52,13 @@ public class ScheduledWorkoutController {
                 ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 
     }
+
+    @Transactional
+    @PutMapping("/cancel")
+    public ResponseEntity<Void> setCanceledTo(@PathParam("id") Long id, @PathParam("isCanceled") Boolean isCanceled) {
+        return scheduledWorkoutService.setCanceledTo(id, isCanceled) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+
 }
 

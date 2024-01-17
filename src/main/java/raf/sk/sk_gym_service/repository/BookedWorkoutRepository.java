@@ -12,10 +12,7 @@ import java.util.List;
 
 @Repository
 public interface BookedWorkoutRepository extends JpaRepository<BookedWorkout, Long> {
-    @Transactional
-    @Modifying
-    @Query("UPDATE BookedWorkout b SET b.isCanceled = :isCanceled WHERE b.id = :bookedWorkoutId")
-    int setCanceledTo(@Param("bookedWorkoutId") Long bookedWorkoutId, @Param("isCanceled") Boolean isCanceled);
+
 
     List<BookedWorkout> findByScheduledWorkoutId(Long scheduledWorkoutId);
 

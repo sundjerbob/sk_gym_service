@@ -15,4 +15,5 @@ public interface ScheduledWorkoutServiceApi {
     ScheduledWorkoutDto updateScheduledWorkout(Long id, ScheduledWorkoutDto updatedScheduledWorkout);
     boolean deleteWorkoutSchedule(Long id);
 
+    boolean setCanceledTo(Long id, Boolean setCanceledTo);
 }

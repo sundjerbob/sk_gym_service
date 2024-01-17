@@ -42,8 +42,9 @@ public class BookedWorkoutService implements BookedWorkoutServiceApi {
                 .orElse(null);
     }
 
+
     @Override
-    public List<BookedWorkoutDto> getBookedWorkoutByScheduledWorkout(Long scheduledWorkoutId) {
+    public List<BookedWorkoutDto> getBookedWorkoutsByScheduledWorkout(Long scheduledWorkoutId) {
         return bookedWorkoutRepository.findByScheduledWorkoutId(
                 scheduledWorkoutId
         ).stream().map(ObjectMapper::bookedWorkoutToDto).toList();
@@ -56,32 +57,35 @@ public class BookedWorkoutService implements BookedWorkoutServiceApi {
         Optional<ScheduledWorkout> scheduledWorkoutOptional = scheduledWorkoutRepository.findById(scheduledWorkoutId);
         if (scheduledWorkoutOptional.isEmpty() || !authHeader.startsWith("Bearer "))
             return null;
+
         ScheduledWorkout scheduledWorkoutParent = scheduledWorkoutOptional.get();
 
-
-        UnpackedAuthToken authInfo = jwtService.unpackClaimsInfo(authHeader.split(" +")[1]);
-
-        UserPerks userPerks = userServiceClient.getUserPerks(
-                authHeader, authInfo.getRequesterId(), scheduledWorkoutParent.getGym().getName()
-        );
-
-
-        scheduledWorkoutParent.getGym().getId(), scheduledWorkoutParent.getTrainingType().getId()
+        Optional<GymTrainingType> gymTrainingTypeOptional =
+                gymTrainingTypeRepository.findByGymIdAndTrainingTypeId(
+                        scheduledWorkoutParent.getGym().getId(),
+                        scheduledWorkoutParent.getTrainingType().getId()
+                );
 
 
         if (gymTrainingTypeOptional.isEmpty())
             throw new RuntimeException("Price for this training type in this gym has not been defined!");
 
-        Double trainingPrice =  gymTrainingTypeOptional.get().getPrice();
+        UnpackedAuthToken authInfo = jwtService.unpackClaimsInfo(authHeader.split(" +")[1]);
+
+        UserPerks userPerks = userServiceClient.getUserPerksWithRetry(
+                authHeader, authInfo.getRequesterId(), scheduledWorkoutParent.getGym().getName()
+        );
+        Double trainingPrice = gymTrainingTypeOptional.get().getPrice();
 
         BookedWorkout bookedWorkout = new BookedWorkout();
 
-        return ObjectMapper.bookedWorkoutToDto(bookedWorkoutRepository.save(bookedWorkout));
-    }
+        // link booking to a parent scheduled workout
+        bookedWorkout.setScheduledWorkout(scheduledWorkoutParent);
+        // link the user who made the booking using his email address
+        bookedWorkout.setUserEmail(authInfo.getRequesterEmail());
 
-    @Override
-    public boolean setCanceledTo(Long id, Boolean setCanceledTo) {
-        return bookedWorkoutRepository.setCanceledTo(id, setCanceledTo) == 1;
+        // save persist booking and return created entity data
+        return ObjectMapper.bookedWorkoutToDto(bookedWorkoutRepository.save(bookedWorkout));
     }
 
 

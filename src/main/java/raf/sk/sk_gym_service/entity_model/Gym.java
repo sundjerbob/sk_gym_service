@@ -32,7 +32,7 @@ public class Gym {
             joinColumns = @JoinColumn(name = "gym_id"),
             inverseJoinColumns = @JoinColumn(name = "training_type_id")
     )
-    private List<GymTrainingType> supportedTrainingTypes;
+    private List<TrainingType> supportedTrainingTypes;
 
     private Boolean deleted;
 
@@ -76,11 +76,11 @@ public class Gym {
         this.scheduledWorkouts = scheduledWorkouts;
     }
 
-    public List<GymTrainingType> getSupportedTrainingTypes() {
+    public List<TrainingType> getSupportedTrainingTypes() {
         return supportedTrainingTypes;
     }
 
-    public void setSupportedTrainingTypes(List<GymTrainingType> supportedTrainingTypes) {
+    public void setSupportedTrainingTypes(List<TrainingType> supportedTrainingTypes) {
         this.supportedTrainingTypes = supportedTrainingTypes;
     }
 

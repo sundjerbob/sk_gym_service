@@ -35,10 +35,6 @@ public class BookedWorkoutController {
     }
 
 
-    @Transactional
-    @PutMapping("/cancel")
-    public ResponseEntity<Void> setCanceledTo(@PathParam("id") Long id, @PathParam("isCanceled") Boolean isCanceled) {
-        return bookedWorkoutService.setCanceledTo(id, isCanceled) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
-    }
+
 }
 
