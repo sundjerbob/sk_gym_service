@@ -2,14 +2,14 @@ package raf.sk.sk_gym_service.user_external_service.inter_service_comunication;
 
 import java.util.Map;
 
-public class UserPerks {
+public class UserPerksDto {
 
     Integer bookedWorkouts;
 
     //* free protein shake, or some extra free perk based on client
     Map<String, String> customPerks;
 
-    public UserPerks setBookedWorkouts(Integer bookedWorkouts) {
+    public UserPerksDto setBookedWorkouts(Integer bookedWorkouts) {
         this.bookedWorkouts = bookedWorkouts;
         return this;
     }

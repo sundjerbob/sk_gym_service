@@ -39,6 +39,7 @@ public class GymService implements GymServiceApi {
         gym.setName(gymDto.getName());
         gym.setManagerEmail(gymDto.getManagerEmail());
         gym.setNumberOfTrainers(gymDto.getNumberOfTrainers());
+        gym.setEveryNthTrainingFree(gymDto.getFreeTrainingDelta());
         return ObjectMapper.gymToDto(gymRepository.save(gym));
     }
 
@@ -51,6 +52,8 @@ public class GymService implements GymServiceApi {
         existingGym.setName(updatedGym.getName());
         existingGym.setNumberOfTrainers(updatedGym.getNumberOfTrainers());
         existingGym.setManagerEmail(updatedGym.getManagerEmail());
+        existingGym.setEveryNthTrainingFree(updatedGym.getFreeTrainingDelta());
+
         return ObjectMapper.gymToDto(gymRepository.save(existingGym));
     }
 

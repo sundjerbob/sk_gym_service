@@ -1,6 +1,6 @@
 package raf.sk.sk_gym_service.user_external_service.inter_service_comunication;
 
-public class EmailNotification {
+public class EmailNotificationDto {
 
     private String emailToNotify;
 

@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import raf.sk.sk_gym_service.user_external_service.inter_service_comunication.UserPerks;
+import raf.sk.sk_gym_service.user_external_service.inter_service_comunication.UserPerksDto;
 
 @Component
 public class UserServiceClient {
@@ -19,7 +19,7 @@ public class UserServiceClient {
         this.userServiceRestTemplate = userServiceRestTemplate;
     }
 
-    public UserPerks getUserPerksWithRetry(String authorizationHeader, Long userId, String gymName) {
+    public UserPerksDto getUserPerksWithRetry(String authorizationHeader, Long userId, String gymName) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", authorizationHeader);
 
@@ -28,7 +28,7 @@ public class UserServiceClient {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         int retries = 0;
-        ResponseEntity<UserPerks> responseEntity = null;
+        ResponseEntity<UserPerksDto> responseEntity = null;
 
         while (retries < MAX_RETRIES) {
             try {
@@ -36,7 +36,7 @@ public class UserServiceClient {
                         url,
                         HttpMethod.GET,
                         entity,
-                        UserPerks.class
+                        UserPerksDto.class
                 );
                 if (responseEntity.getStatusCode().is2xxSuccessful()) {
                     return responseEntity.getBody();

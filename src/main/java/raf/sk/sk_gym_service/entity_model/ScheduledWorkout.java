@@ -3,6 +3,7 @@ package raf.sk.sk_gym_service.entity_model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "scheduled_workouts")
@@ -25,6 +26,10 @@ public class ScheduledWorkout {
 
     @Column(name = "canceled")
     private Boolean isCanceled;
+
+    @JoinColumn(referencedColumnName = "id", name = "scheduled_workout_id")
+    @OneToMany(targetEntity = BookedWorkout.class, cascade = CascadeType.ALL)
+    List<BookedWorkout> bookedWorkouts;
 
 
     public Long getId() {
@@ -65,5 +70,13 @@ public class ScheduledWorkout {
 
     public Boolean getCanceled() {
         return isCanceled;
+    }
+
+    public List<BookedWorkout> getBookedWorkouts() {
+        return bookedWorkouts;
+    }
+
+    public void setBookedWorkouts(List<BookedWorkout> bookedWorkouts) {
+        this.bookedWorkouts = bookedWorkouts;
     }
 }

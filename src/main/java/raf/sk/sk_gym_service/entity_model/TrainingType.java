@@ -32,6 +32,20 @@ public class TrainingType {
     @ManyToMany(mappedBy = "supportedTrainingTypes")
     private List<Gym> supportedGyms;
 
+
+    @Override
+    public String toString() {
+        return "TrainingType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", durationInMinutes=" + durationInMinutes +
+                ", description='" + description + '\'' +
+                ", isIndividual=" + isIndividual +
+                ", maxParticipants=" + maxParticipants +
+                ", supportedGyms=" + supportedGyms +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

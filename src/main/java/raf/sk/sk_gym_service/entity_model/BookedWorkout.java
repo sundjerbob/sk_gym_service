@@ -14,14 +14,12 @@ public class BookedWorkout {
     private String userEmail;
 
     @ManyToOne
-    @JoinColumn(name = "scheduled_workout_id")
+    @JoinColumn(referencedColumnName = "id", name = "scheduled_workout_id")
     private ScheduledWorkout scheduledWorkout;
 
 
     @Column(name = "calculated_price")
     private Double calculatedPrice;
-
-
 
 
     public Long getId() {

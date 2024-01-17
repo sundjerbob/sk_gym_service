@@ -19,7 +19,7 @@ public class Gym {
     private Integer numberOfTrainers;
 
     @Column(name = "manager_email")
-    private String managersEmail;
+    private String managerEmail;
 
     @Column(name = "free_training_delta")
     private Integer everyNthTrainingFree;
@@ -61,11 +61,11 @@ public class Gym {
     }
 
     public String getManagerEmail() {
-        return managersEmail;
+        return managerEmail;
     }
 
     public void setManagerEmail(String managerEmail) {
-        this.managersEmail = managerEmail;
+        this.managerEmail = managerEmail;
     }
 
     public List<ScheduledWorkout> getScheduledWorkouts() {
@@ -90,5 +90,13 @@ public class Gym {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Integer getEveryNthTrainingFree() {
+        return everyNthTrainingFree;
+    }
+
+    public void setEveryNthTrainingFree(Integer everyNthTrainingFree) {
+        this.everyNthTrainingFree = everyNthTrainingFree;
     }
 }

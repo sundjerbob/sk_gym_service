@@ -13,9 +13,11 @@ public class GymDto {
 
     private List<TrainingTypeDto> supportedTrainingTypes;
 
-    public List<TrainingTypeDto> getSupportedTrainingTypes() {
+    private List<TrainingTypeDto> getSupportedTrainingTypes() {
         return supportedTrainingTypes;
     }
+
+    private Integer freeTrainingDelta;
 
     public Long getId() {
         return id;
@@ -52,5 +54,13 @@ public class GymDto {
 
     public void setNumberOfTrainers(int numberOfTrainers) {
         this.numberOfTrainers = numberOfTrainers;
+    }
+
+    public Integer getFreeTrainingDelta() {
+        return freeTrainingDelta;
+    }
+
+    public void setFreeTrainingDelta(Integer freeTrainingDelta) {
+        this.freeTrainingDelta = freeTrainingDelta;
     }
 }
