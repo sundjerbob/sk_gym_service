@@ -8,12 +8,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import raf.sk.sk_gym_service.entity_model.BookedWorkout;
 
+import java.util.List;
+
 @Repository
 public interface BookedWorkoutRepository extends JpaRepository<BookedWorkout, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE BookedWorkout b SET b.isCanceled = :isCanceled WHERE b.id = :bookedWorkoutId")
     int setCanceledTo(@Param("bookedWorkoutId") Long bookedWorkoutId, @Param("isCanceled") Boolean isCanceled);
+
+    List<BookedWorkout> findByScheduledWorkoutId(Long scheduledWorkoutId);
+
 }
 
 

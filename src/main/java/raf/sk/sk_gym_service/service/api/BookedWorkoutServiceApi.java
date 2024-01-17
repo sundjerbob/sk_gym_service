@@ -1,14 +1,17 @@
 package raf.sk.sk_gym_service.service.api;
 
 
-import raf.sk.sk_gym_service.dto.model.BookedWorkoutDto;
+import raf.sk.sk_gym_service.dto.BookedWorkoutDto;
+
+import java.util.List;
 
 public interface BookedWorkoutServiceApi {
     BookedWorkoutDto getBookedWorkoutById(Long id);
 
-    BookedWorkoutDto createBookedWorkout(BookedWorkoutDto bookedWorkout);
 
-    BookedWorkoutDto updateBookedWorkout(Long id, BookedWorkoutDto updatedWorkout);
+    List<BookedWorkoutDto> getBookedWorkoutByScheduledWorkout(Long scheduledWorkoutId);
+
+    BookedWorkoutDto createBookedWorkout(Long scheduledWorkoutId, String authHeader);
 
     boolean setCanceledTo(Long id, Boolean setCanceledTo);
 }

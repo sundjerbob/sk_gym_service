@@ -21,6 +21,8 @@ public class Gym {
     @Column(name = "manager_email")
     private String managersEmail;
 
+    @Column(name = "free_training_delta")
+    private Integer everyNthTrainingFree;
     @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ScheduledWorkout> scheduledWorkouts;
 

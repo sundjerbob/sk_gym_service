@@ -11,11 +11,11 @@ public class GymTrainingType {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(referencedColumnName = "id", name = "gym_id")
     private Gym gym;
 
     @ManyToOne
-    @JoinColumn(name = "training_type_id")
+    @JoinColumn(referencedColumnName = "id", name = "training_type_id")
     private TrainingType trainingType;
 
     @Column

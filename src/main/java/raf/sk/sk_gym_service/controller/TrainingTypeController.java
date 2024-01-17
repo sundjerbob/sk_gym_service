@@ -3,14 +3,14 @@ package raf.sk.sk_gym_service.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import raf.sk.sk_gym_service.dto.model.TrainingTypeDto;
+import raf.sk.sk_gym_service.dto.TrainingTypeDto;
 import raf.sk.sk_gym_service.repository.TrainingTypeRepository;
 import raf.sk.sk_gym_service.service.api.TrainingTypeServiceApi;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/training-types")
+@RequestMapping("/training-types")
 public class TrainingTypeController {
 
     private final TrainingTypeRepository trainingTypeRepository;

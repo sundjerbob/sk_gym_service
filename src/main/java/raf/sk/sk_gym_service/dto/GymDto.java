@@ -1,4 +1,4 @@
-package raf.sk.sk_gym_service.dto.model;
+package raf.sk.sk_gym_service.dto;
 
 import java.util.List;
 

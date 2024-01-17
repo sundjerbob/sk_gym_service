@@ -1,13 +1,16 @@
-package raf.sk.sk_gym_service.dto.model;
+package raf.sk.sk_gym_service.dto;
 
-public class GymTrainingTypeDto {
+import java.time.LocalDateTime;
 
-    private Long id;
+public class ScheduledWorkoutDto {
+
+    Long id;
+    private LocalDateTime startTime;
+
     private String gymName;
 
     private TrainingTypeDto trainingType;
 
-    private Double price;
 
     public Long getId() {
         return id;
@@ -17,8 +20,15 @@ public class GymTrainingTypeDto {
         this.id = id;
     }
 
-    public String getGymName() {
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
 
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getGymName() {
         return gymName;
     }
 
@@ -32,13 +42,5 @@ public class GymTrainingTypeDto {
 
     public void setTrainingType(TrainingTypeDto trainingType) {
         this.trainingType = trainingType;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 }

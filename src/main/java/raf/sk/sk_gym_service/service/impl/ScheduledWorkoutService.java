@@ -1,7 +1,7 @@
 package raf.sk.sk_gym_service.service.impl;
 
 import org.springframework.stereotype.Service;
-import raf.sk.sk_gym_service.dto.model.ScheduledWorkoutDto;
+import raf.sk.sk_gym_service.dto.ScheduledWorkoutDto;
 import raf.sk.sk_gym_service.entity_model.Gym;
 import raf.sk.sk_gym_service.entity_model.ScheduledWorkout;
 import raf.sk.sk_gym_service.entity_model.TrainingType;

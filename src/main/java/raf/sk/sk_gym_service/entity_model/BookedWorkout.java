@@ -17,6 +17,11 @@ public class BookedWorkout {
     @JoinColumn(name = "scheduled_workout_id")
     private ScheduledWorkout scheduledWorkout;
 
+
+    @Column(name = "calculated_price")
+    private Double calculatedPrice;
+
+    @Column("canceled")
     private Boolean isCanceled;
 
 
@@ -45,7 +50,19 @@ public class BookedWorkout {
     }
 
 
+    public Double getCalculatedPrice() {
+        return calculatedPrice;
+    }
+
+    public void setCalculatedPrice(Double calculatedPrice) {
+        this.calculatedPrice = calculatedPrice;
+    }
+
     public Boolean getCanceled() {
         return isCanceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        isCanceled = canceled;
     }
 }

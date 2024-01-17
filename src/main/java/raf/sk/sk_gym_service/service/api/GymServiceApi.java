@@ -1,7 +1,6 @@
 package raf.sk.sk_gym_service.service.api;
 
-import raf.sk.sk_gym_service.dto.model.GymDto;
-import raf.sk.sk_gym_service.entity_model.Gym;
+import raf.sk.sk_gym_service.dto.GymDto;
 
 import java.util.List;
 

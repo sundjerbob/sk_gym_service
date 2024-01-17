@@ -2,13 +2,13 @@ package raf.sk.sk_gym_service.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import raf.sk.sk_gym_service.dto.model.ScheduledWorkoutDto;
+import raf.sk.sk_gym_service.dto.ScheduledWorkoutDto;
 import raf.sk.sk_gym_service.service.api.ScheduledWorkoutServiceApi;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/workout-schedules")
+@RequestMapping("/scheduled-workouts")
 public class ScheduledWorkoutController {
 
     private final ScheduledWorkoutServiceApi scheduledWorkoutService;

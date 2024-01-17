@@ -2,7 +2,7 @@ package raf.sk.sk_gym_service.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import raf.sk.sk_gym_service.dto.model.GymDto;
+import raf.sk.sk_gym_service.dto.GymDto;
 import raf.sk.sk_gym_service.entity_model.Gym;
 import raf.sk.sk_gym_service.object_mapper.ObjectMapper;
 import raf.sk.sk_gym_service.repository.GymRepository;
@@ -34,23 +34,24 @@ public class GymService implements GymServiceApi {
 
     @Override
     public GymDto createGym(GymDto gymDto) {
-        return ObjectMapper.gymToDto(gymRepository.save(ObjectMapper.dtoToGym(gymDto)));
+        Gym gym = new Gym();
+        gym.setDeleted(false);
+        gym.setName(gymDto.getName());
+        gym.setManagerEmail(gymDto.getManagerEmail());
+        gym.setNumberOfTrainers(gymDto.getNumberOfTrainers());
+        return ObjectMapper.gymToDto(gymRepository.save(gym));
     }
 
     @Override
     public GymDto updateGym(Long gymId, GymDto updatedGym) {
         Optional<Gym> existingGymOptional = gymRepository.findByIdAndDeletedFalse(gymId);
-        if (existingGymOptional.isPresent()) {
-            Gym existingGym = existingGymOptional.get();
-            existingGym.setName(updatedGym.getName());
-            existingGym.setNumberOfTrainers(updatedGym.getNumberOfTrainers());
-            existingGym.setManagerEmail(updatedGym.getManagerEmail());
-            existingGym.setSupportedTrainingTypes(updatedGym.getSupportedTrainingTypes().stream().map(
-                    ObjectMapper::dtoToGymTrainingType
-            ).toList());
-            return ObjectMapper.gymToDto(gymRepository.save(existingGym));
-        }
-        return null; // Gym not found
+        if (existingGymOptional.isEmpty())
+            return null;
+        Gym existingGym = existingGymOptional.get();
+        existingGym.setName(updatedGym.getName());
+        existingGym.setNumberOfTrainers(updatedGym.getNumberOfTrainers());
+        existingGym.setManagerEmail(updatedGym.getManagerEmail());
+        return ObjectMapper.gymToDto(gymRepository.save(existingGym));
     }
 
     @Override

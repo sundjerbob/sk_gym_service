@@ -2,7 +2,7 @@ package raf.sk.sk_gym_service.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import raf.sk.sk_gym_service.dto.model.TrainingTypeDto;
+import raf.sk.sk_gym_service.dto.TrainingTypeDto;
 import raf.sk.sk_gym_service.entity_model.TrainingType;
 import raf.sk.sk_gym_service.object_mapper.ObjectMapper;
 import raf.sk.sk_gym_service.repository.TrainingTypeRepository;

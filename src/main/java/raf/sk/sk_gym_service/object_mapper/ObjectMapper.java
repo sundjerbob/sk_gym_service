@@ -1,6 +1,6 @@
 package raf.sk.sk_gym_service.object_mapper;
 
-import raf.sk.sk_gym_service.dto.model.*;
+import raf.sk.sk_gym_service.dto.*;
 import raf.sk.sk_gym_service.entity_model.*;
 
 
@@ -37,7 +37,7 @@ public class ObjectMapper {
 
 
 
-    public GymDto gymToDto(Gym dataSource) {
+    public static GymDto gymToDto(Gym dataSource) {
         GymDto dataDestination = new GymDto();
         dataDestination.setId(dataSource.getId());
         dataDestination.setName(dataSource.getName());
